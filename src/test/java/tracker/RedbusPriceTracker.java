@@ -21,6 +21,7 @@ public class RedbusPriceTracker {
 		driver.manage().window().maximize();
 		String TrackerPrice = "";
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		
 
 		driver.get(
 				"https://www.redbus.in/bus-tickets/bangalore-to-hyderabad?fromCityName=Bangalore&fromCityId=122&srcCountry=IND&fromCityType=CITY&toCityName=Hyderabad&toCityId=124&destCountry=India&toCityType=CITY&onward=14-Aug-2025&doj=14-Aug-2025&ref=home");
