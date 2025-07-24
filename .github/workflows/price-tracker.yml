@@ -33,5 +33,8 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Build and Run
-        run: mvn clean test
+      - name: Compile Java
+        run: mvn clean compile
+
+      - name: Run RedbusPriceTracker
+        run: java -cp target/classes tracker.RedbusPriceTracker
