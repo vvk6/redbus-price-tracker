@@ -44,8 +44,8 @@ public class RedbusPriceTrackerTest {
     		driver.get(
     				"https://www.redbus.in/bus-tickets/bangalore-to-hyderabad?fromCityName=Bangalore&fromCityId=122&srcCountry=IND&fromCityType=CITY&toCityName=Hyderabad&toCityId=124&destCountry=India&toCityType=CITY&onward=14-Aug-2025&doj=14-Aug-2025&ref=home");
     		wait.until(
-    				ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'busesFoundText')]")));
-    		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-autoid='filters-desktop']")));
+    				ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class, 'busesFoundText')]")));
+    		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@data-autoid='filters-desktop']")));
 
     		WebElement filterContainer = driver.findElement(By.xpath("//div[@data-autoid='filters-desktop']"));
     		((JavascriptExecutor) driver).executeScript("arguments[0].scrollTop = arguments[0].scrollTop + 200;",
@@ -56,10 +56,10 @@ public class RedbusPriceTrackerTest {
     		if (busoperator.isEnabled()) {
     			busoperator.sendKeys("Jabbar");
     		}
-    		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Jabbar  Travels']")));
+    		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='Jabbar  Travels']")));
 
     		driver.findElement(By.xpath("//div[@data-autoid=\"busOperator\"]//label[@for=\"checkbox\"]")).click();
-    		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class,'busTitleWrap_')]")));
+    		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class,'busTitleWrap_')]")));
 
     		List<WebElement> busesList = driver.findElements(By.xpath("//div[contains(@class,'busTitleWrap_')]"));
     		WebElement busOperatorName = busesList.get(0).findElement(By.xpath("//div[contains(@class,'travelsName___')]"));
