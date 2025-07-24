@@ -15,6 +15,10 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+      - name: Debug - Check env vars (do not print actual values!)
+        run: |
+          echo "BOT token starts with: ${TELEGRAM_BOT_TOKEN:0:5}"
+          echo "Chat ID length: ${#TELEGRAM_CHAT_ID}"
 
       - name: Set up Java
         uses: actions/setup-java@v3
