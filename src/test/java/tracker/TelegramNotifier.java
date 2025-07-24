@@ -9,8 +9,10 @@ import org.apache.http.entity.StringEntity;
 import java.io.File;
 
 public class TelegramNotifier {
-	private static final String BOT_TOKEN = "8369414618:AAFJVI-DCrp5KI8UywJ47u-_9RbMtqTbmx4";
-    private static final String CHAT_ID = "898999018";
+	//private static final String BOT_TOKEN = "8369414618:AAFJVI-DCrp5KI8UywJ47u-_9RbMtqTbmx4";
+   // private static final String CHAT_ID = "898999018";
+    private static final   String BOT_TOKEN = System.getenv("TELEGRAM_BOT_TOKEN");
+    private static final String CHAT_ID = System.getenv("TELEGRAM_CHAT_ID");
 
     public static void sendTextMessage(String message) throws Exception {
         String url = "https://api.telegram.org/bot" + BOT_TOKEN + "/sendMessage";
