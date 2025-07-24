@@ -12,9 +12,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Test;
 
 public class RedbusPriceTracker {
-	public static void main(String[] args) throws Exception {
+	
+	@Test
+	public void trackBusPrice()  throws Exception {
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--start-maximized");
 		WebDriver driver = new ChromeDriver();
