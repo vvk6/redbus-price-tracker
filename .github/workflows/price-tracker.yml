@@ -1,0 +1,30 @@
+name: Redbus Price Tracker
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours (in UTC)
+  workflow_dispatch:       # Manual trigger if needed
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Build and Run
+        run: mvn clean test
