@@ -23,8 +23,8 @@ public class TelegramNotifier {
 
     public static void sendTextMessage(String message) {
         try {
-        	System.out.println("BOT token starts with: " + BOT_TOKEN.substring(0, 5));
-        	System.out.println("Chat ID length: " + CHAT_ID.length());
+        	//System.out.println("BOT token starts with: " + BOT_TOKEN.substring(0, 5));
+        	//System.out.println("Chat ID length: " + CHAT_ID.length());
             String urlString = String.format("https://api.telegram.org/bot%s/sendMessage", BOT_TOKEN);
             @SuppressWarnings("deprecation")
 			URL url = new URL(urlString);

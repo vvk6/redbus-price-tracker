@@ -1,6 +1,8 @@
 package tracker;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -19,9 +21,19 @@ public class RedbusPriceTrackerTest {
 	@Test
 	public void trackBusPrice()  throws Exception {
 		System.out.println("===== Test started =====");
-		//ChromeOptions options = new ChromeOptions();
+		ChromeOptions options = new ChromeOptions();
 		//options.addArguments("--start-maximized");
-		WebDriver driver = new ChromeDriver();
+		Path tempProfile = Files.createTempDirectory("chrome-profile");
+		options.addArguments("--user-data-dir=" + tempProfile.toAbsolutePath().toString());
+
+		if (System.getenv("CI") != null) {
+		    options.addArguments("--headless=new");
+		    options.addArguments("--disable-gpu");
+		    options.addArguments("--window-size=1920,1080");
+		    options.addArguments("--no-sandbox");
+		    options.addArguments("--disable-dev-shm-usage");
+		}
+		WebDriver driver = new ChromeDriver(options);
 		driver.manage().window().maximize();
 		String TrackerPrice = "";
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
