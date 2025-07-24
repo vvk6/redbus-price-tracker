@@ -14,10 +14,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
-public class RedbusPriceTracker {
+public class RedbusPriceTrackerTest {
 	
 	@Test
 	public void trackBusPrice()  throws Exception {
+		System.out.println("===== Test started =====");
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--start-maximized");
 		WebDriver driver = new ChromeDriver();
@@ -93,7 +94,7 @@ public class RedbusPriceTracker {
 		 }
 		  
 		  }
-		 
+		  System.out.println("===== Test Ended =====");
 		  TelegramNotifier.sendTextMessage("------------------------");
 
 	}

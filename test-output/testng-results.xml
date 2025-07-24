@@ -2,12 +2,12 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-07-24T13:16:36 IST" name="Default suite" finished-at="2025-07-24T13:16:56 IST" duration-ms="20600">
+  <suite started-at="2025-07-24T13:24:10 IST" name="Default suite" finished-at="2025-07-24T13:24:29 IST" duration-ms="19003">
     <groups>
     </groups>
-    <test started-at="2025-07-24T13:16:36 IST" name="Default test" finished-at="2025-07-24T13:16:56 IST" duration-ms="20600">
+    <test started-at="2025-07-24T13:24:10 IST" name="Default test" finished-at="2025-07-24T13:24:29 IST" duration-ms="19003">
       <class name="tracker.RedbusPriceTracker">
-        <test-method signature="trackBusPrice()[pri:0, instance:tracker.RedbusPriceTracker@2aceadd4]" started-at="2025-07-24T13:16:36 IST" name="trackBusPrice" finished-at="2025-07-24T13:16:56 IST" duration-ms="20516" status="PASS">
+        <test-method signature="trackBusPrice()[pri:0, instance:tracker.RedbusPriceTracker@2aceadd4]" started-at="2025-07-24T13:24:10 IST" name="trackBusPrice" finished-at="2025-07-24T13:24:29 IST" duration-ms="18939" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- trackBusPrice -->
