@@ -19,8 +19,8 @@ public class RedbusPriceTrackerTest {
 	@Test
 	public void trackBusPrice()  throws Exception {
 		System.out.println("===== Test started =====");
-		ChromeOptions options = new ChromeOptions();
-		options.addArguments("--start-maximized");
+		//ChromeOptions options = new ChromeOptions();
+		//options.addArguments("--start-maximized");
 		WebDriver driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		String TrackerPrice = "";
