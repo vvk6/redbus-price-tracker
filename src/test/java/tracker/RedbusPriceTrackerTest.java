@@ -4,6 +4,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -12,6 +13,8 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
@@ -21,31 +24,37 @@ public class RedbusPriceTrackerTest {
 	@Test
 	public void trackBusPrice()  throws Exception {
    		System.out.println("===== Test started =====");
-		ChromeOptions options = new ChromeOptions();
-		//options.addArguments("--start-maximized");
-		Path tempProfile = Files.createTempDirectory("chrome-profile");
-		options.addArguments("--user-data-dir=" + tempProfile.toAbsolutePath().toString());
-
-		if (System.getenv("CI") != null) {
-		    options.addArguments("--headless=new");
-		    options.addArguments("--disable-gpu");
-		    options.addArguments("--window-size=1920,1080");
-		    options.addArguments("--no-sandbox");
-		    options.addArguments("--disable-dev-shm-usage");
-		}
-		WebDriver driver = new ChromeDriver(options);
-		driver.manage().window().maximize();
+		
+		  ChromeOptions options = new ChromeOptions();
+		  //options.addArguments("--start-maximized"); 
+		  Path tempProfile = Files.createTempDirectory("chrome-profile");
+		  options.addArguments("--user-data-dir=" + tempProfile.toAbsolutePath().toString());
+		  
+		  if (System.getenv("CI") != null) { options.addArguments("--headless=new");
+		  options.addArguments("--disable-gpu");
+		  options.addArguments("--window-size=1920,1080");
+		  options.addArguments("--no-sandbox");
+		  options.addArguments("--disable-dev-shm-usage"); }
+		  WebDriver driver = new ChromeDriver(options);
+		 
+     
+	  	driver.manage().window().maximize();
 		String TrackerPrice = "";
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         try {
  
+    		String link ="https://www.redbus.in/bus-tickets/bangalore-to-hyderabad?fromCityName=Bangalore&fromCityId=122&srcCountry=IND&fromCityType=CITY&toCityName=Hyderabad&toCityId=124&destCountry=India&toCityType=CITY&onward=14-Aug-2025&doj=14-Aug-2025&ref=home";
+
+    		//String link = "https://www.redbus.in/";
     		
 
-    		driver.get(
-    				"https://www.redbus.in/bus-tickets/bangalore-to-hyderabad?fromCityName=Bangalore&fromCityId=122&srcCountry=IND&fromCityType=CITY&toCityName=Hyderabad&toCityId=124&destCountry=India&toCityType=CITY&onward=14-Aug-2025&doj=14-Aug-2025&ref=home");
+    		//driver.get(url);
+    		driver.get(link);
+    		File src1 = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+    		FileUtils.copyFile(src1, new File("screenshots/debug_before_busesFoundText.png"));
     		wait.until(
-    				ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class, 'busesFoundText')]")));
-    		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@data-autoid='filters-desktop']")));
+    				ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'busesFoundText')]")));
+    		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-autoid='filters-desktop']")));
 
     		WebElement filterContainer = driver.findElement(By.xpath("//div[@data-autoid='filters-desktop']"));
     		((JavascriptExecutor) driver).executeScript("arguments[0].scrollTop = arguments[0].scrollTop + 200;",
@@ -56,10 +65,10 @@ public class RedbusPriceTrackerTest {
     		if (busoperator.isEnabled()) {
     			busoperator.sendKeys("Jabbar");
     		}
-    		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='Jabbar  Travels']")));
+    		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Jabbar  Travels']")));
 
     		driver.findElement(By.xpath("//div[@data-autoid=\"busOperator\"]//label[@for=\"checkbox\"]")).click();
-    		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class,'busTitleWrap_')]")));
+    		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class,'busTitleWrap_')]")));
 
     		List<WebElement> busesList = driver.findElements(By.xpath("//div[contains(@class,'busTitleWrap_')]"));
     		WebElement busOperatorName = busesList.get(0).findElement(By.xpath("//div[contains(@class,'travelsName___')]"));
@@ -113,7 +122,7 @@ public class RedbusPriceTrackerTest {
         } catch(Exception e) {
         	System.out.println(e);
         } finally {
-        	driver.quit();
+        	//driver.quit();
         }
 		 
 
