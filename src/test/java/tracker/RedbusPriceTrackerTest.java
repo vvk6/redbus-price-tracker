@@ -7,6 +7,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -24,17 +25,19 @@ public class RedbusPriceTrackerTest {
 	@Test
 	public void trackBusPrice()  throws Exception {
    		System.out.println("===== Test started =====");
-		
-		  ChromeOptions options = new ChromeOptions();
-		  //options.addArguments("--start-maximized"); 
-		  Path tempProfile = Files.createTempDirectory("chrome-profile");
-		  options.addArguments("--user-data-dir=" + tempProfile.toAbsolutePath().toString());
+   		ChromeOptions options = new ChromeOptions();
+
 		  
-		  if (System.getenv("CI") != null) { options.addArguments("--headless=new");
-		  options.addArguments("--disable-gpu");
-		  options.addArguments("--window-size=1920,1080");
-		  options.addArguments("--no-sandbox");
-		  options.addArguments("--disable-dev-shm-usage"); }
+		  if (System.getenv("CI") != null) {
+			  
+			  options.addArguments("--headless=chrome");
+			  options.addArguments("--disable-gpu");
+			  options.addArguments("--no-sandbox");
+			  options.addArguments("--disable-dev-shm-usage");
+			  options.addArguments("--disable-blink-features=AutomationControlled");
+			  options.addArguments("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36");
+			  options.setExperimentalOption("excludeSwitches", Arrays.asList("enable-automation"));
+			  options.setExperimentalOption("useAutomationExtension", false);}
 		  WebDriver driver = new ChromeDriver(options);
 		 
      
