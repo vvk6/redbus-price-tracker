@@ -29,19 +29,19 @@ public class RedbusPriceTrackerTest {
    		ChromeOptions options = new ChromeOptions();
 
 		  
-		/*
-		 * if (System.getenv("CI") != null) {
-		 * 
-		 * options.addArguments("--headless=chrome");
-		 * options.addArguments("--disable-gpu"); options.addArguments("--no-sandbox");
-		 * options.addArguments("--disable-dev-shm-usage");
-		 * options.addArguments("--disable-blink-features=AutomationControlled");
-		 * options.
-		 * addArguments("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
-		 * ); options.setExperimentalOption("excludeSwitches",
-		 * Arrays.asList("enable-automation"));
-		 * options.setExperimentalOption("useAutomationExtension", false);}
-		 */
+		
+		  if (System.getenv("CI") != null) {
+		  
+		  options.addArguments("--headless=chrome");
+		  options.addArguments("--disable-gpu"); options.addArguments("--no-sandbox");
+		  options.addArguments("--disable-dev-shm-usage");
+		  options.addArguments("--disable-blink-features=AutomationControlled");
+		  options.
+		  addArguments("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+		  ); options.setExperimentalOption("excludeSwitches",
+		  Arrays.asList("enable-automation"));
+		  options.setExperimentalOption("useAutomationExtension", false);}
+		 
 		  WebDriver driver = new ChromeDriver(options);
 		  Actions actions = new Actions(driver);
 		 
