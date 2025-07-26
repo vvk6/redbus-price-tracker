@@ -32,11 +32,12 @@ public class RedbusPriceTrackerTest {
 		
 		  if (System.getenv("CI") != null) {
 		  
-		  options.addArguments("--headless=chrome");
+		  options.addArguments("--headless=new");
 		  options.addArguments("--disable-gpu"); options.addArguments("--no-sandbox");
 		  options.addArguments("--disable-dev-shm-usage");
 		  options.addArguments("--disable-blink-features=AutomationControlled");
 		  options.addArguments("--window-size=1920,1080");
+		  options.addArguments("start-maximized");
 		  options.addArguments("--force-device-scale-factor=1");
 		  options.addArguments("--high-dpi-support=1");
 		  options.
@@ -50,7 +51,7 @@ public class RedbusPriceTrackerTest {
 		  Actions actions = new Actions(driver);
 		 
      
-	  	driver.manage().window().maximize();
+		  driver.manage().window().setSize(new Dimension(1920, 1080));
 		String TrackerPrice = "";
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         try {
