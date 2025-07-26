@@ -98,9 +98,9 @@ public class RedbusPriceTrackerTest {
     		
     		driver.findElement(By.xpath("//i[contains(@class,'icon-date_range')]")).click();
     		wait.until(
-    				ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'datePickerWrapper___9a8bba')]")));
+    				ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'datePickerWrapper')]")));
     		
-    		String Month =driver.findElement(By.xpath("//p[@class='monthYear___93a489']")).getText();
+    		String Month =driver.findElement(By.xpath("//p[contains(@class,'monthYear')]")).getText();
     		System.out.println(Month);
     		if(Month.toLowerCase().contains("july")) {
     			driver.findElement(By.xpath("//i[contains(@class,'right__')]")).click();
