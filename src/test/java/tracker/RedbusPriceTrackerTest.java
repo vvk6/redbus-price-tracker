@@ -120,13 +120,17 @@ public class RedbusPriceTrackerTest {
     				ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='14 Aug, 2025']")));
        		driver.findElement(By.xpath("//button[contains(@class,'searchButtonWrapper')]")).click();
        		
-       		Thread.sleep(20000);
+       		Thread.sleep(15000);
        	
     		
     		
     		//div[@class="datePickerWrapper___9a8bba"]
     		File src1 = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
     		FileUtils.copyFile(src1, new File("screenshots/debug_before_busesFoundText.png"));
+    		
+    		WebElement busFoundText = driver.findElement(By.xpath("//div[contains(@class, 'busesFoundText')]"));
+
+    		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});", busFoundText);
     		wait.until(
     				ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'busesFoundText')]")));
     		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-autoid='filters-desktop']")));
