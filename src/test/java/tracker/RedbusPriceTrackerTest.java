@@ -16,6 +16,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
@@ -28,31 +29,89 @@ public class RedbusPriceTrackerTest {
    		ChromeOptions options = new ChromeOptions();
 
 		  
-		  if (System.getenv("CI") != null) {
-			  
-			  options.addArguments("--headless=chrome");
-			  options.addArguments("--disable-gpu");
-			  options.addArguments("--no-sandbox");
-			  options.addArguments("--disable-dev-shm-usage");
-			  options.addArguments("--disable-blink-features=AutomationControlled");
-			  options.addArguments("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36");
-			  options.setExperimentalOption("excludeSwitches", Arrays.asList("enable-automation"));
-			  options.setExperimentalOption("useAutomationExtension", false);}
+		/*
+		 * if (System.getenv("CI") != null) {
+		 * 
+		 * options.addArguments("--headless=chrome");
+		 * options.addArguments("--disable-gpu"); options.addArguments("--no-sandbox");
+		 * options.addArguments("--disable-dev-shm-usage");
+		 * options.addArguments("--disable-blink-features=AutomationControlled");
+		 * options.
+		 * addArguments("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+		 * ); options.setExperimentalOption("excludeSwitches",
+		 * Arrays.asList("enable-automation"));
+		 * options.setExperimentalOption("useAutomationExtension", false);}
+		 */
 		  WebDriver driver = new ChromeDriver(options);
+		  Actions actions = new Actions(driver);
 		 
      
 	  	driver.manage().window().maximize();
 		String TrackerPrice = "";
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         try {
  
-    		String link ="https://www.redbus.in/bus-tickets/bangalore-to-hyderabad?fromCityName=Bangalore&fromCityId=122&srcCountry=IND&fromCityType=CITY&toCityName=Hyderabad&toCityId=124&destCountry=India&toCityType=CITY&onward=14-Aug-2025&doj=14-Aug-2025&ref=home";
+    		//String link ="https://www.redbus.in/bus-tickets/bangalore-to-hyderabad?fromCityName=Bangalore&fromCityId=122&srcCountry=IND&fromCityType=CITY&toCityName=Hyderabad&toCityId=124&destCountry=India&toCityType=CITY&onward=14-Aug-2025&doj=14-Aug-2025&ref=home";
 
-    		//String link = "https://www.redbus.in/";
+    		String link = "https://www.redbus.in/";
+
+    		driver.get(link);
+    		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-autoid='searchWidget']")));
+    		// Click on the "From" field
+    		WebElement fromDiv = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='srcDestWrapper___db6b0f' and .//div[text()='From']]")));
+    		fromDiv.click();
+    		
+    		Thread.sleep(2000);
     		
 
-    		//driver.get(url);
-    		driver.get(link);
+    		// Type into the focused element (React traps focus to a hidden input field)
+    		actions.sendKeys("Bangalore").perform();
+    		Thread.sleep(2000);
+
+    		// Wait for and click on the auto-suggestion (optional safety)
+    		WebElement fromSuggestion = wait.until(ExpectedConditions.elementToBeClickable(
+    		    By.xpath("//div[@aria-label=\"Search suggestions list\"]")
+    		));
+    		driver.findElement(By.xpath("(//div[@class=\"listHeader___40b031\"])[1]")).click();
+    		// Click on the "ToDiv" field
+    		WebElement toDiv = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='srcDestWrapper___db6b0f' and .//div[text()='To']]")));
+    		toDiv.click();
+    		
+    		Thread.sleep(2000);
+    		
+
+    		// Type into the focused element (React traps focus to a hidden input field)
+    		actions.sendKeys("Hyderabad").perform();
+    		Thread.sleep(2000);
+
+    		// Wait for and click on the auto-suggestion (optional safety)
+    		WebElement toSuggestion = wait.until(ExpectedConditions.elementToBeClickable(
+    		    By.xpath("//div[@aria-label=\"Search suggestions list\"]")
+    		));
+    		driver.findElement(By.xpath("(//div[@class=\"listHeader___40b031\"])[1]")).click();
+    		
+    	//click on calendar
+    		
+    		driver.findElement(By.xpath("//i[contains(@class,'icon-date_range')]")).click();
+    		wait.until(
+    				ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'datePickerWrapper___9a8bba')]")));
+    		
+    		String Month =driver.findElement(By.xpath("//p[@class='monthYear___93a489']")).getText();
+    		System.out.println(Month);
+    		if(Month.toLowerCase().contains("july")) {
+    			driver.findElement(By.xpath("//i[contains(@class,'right__')]")).click();
+    			String newMonth =driver.findElement(By.xpath("//p[@class='monthYear___93a489']")).getText();
+    			System.out.println(newMonth);
+    		} 
+    		
+    		driver.findElement(By.xpath("//li//span[text()='14']")).click();
+       		wait.until(
+    				ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='14 Aug, 2025']")));
+       		driver.findElement(By.xpath("//button[contains(@class,'searchButtonWrapper')]")).click();
+       	
+    		
+    		
+    		//div[@class="datePickerWrapper___9a8bba"]
     		File src1 = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
     		FileUtils.copyFile(src1, new File("screenshots/debug_before_busesFoundText.png"));
     		wait.until(
@@ -91,7 +150,7 @@ public class RedbusPriceTrackerTest {
     			  String busType=  busesList.get(i).findElement(By.xpath(".//p[contains(@class, 'busType__')]")).getText();
     			  
     		 if(busType.equalsIgnoreCase("Scania AC Multi Axle Sleeper (2+1)")) {
-    		  TrackerPrice= busesList.get(i).findElement(By.xpath(".//ancestor::li//p[@class='finalFare___a41cf4']")).getText();
+    		  TrackerPrice= busesList.get(i).findElement(By.xpath(".//ancestor::li//p[contains(@class,'finalFare')]")).getText();
     		  
     		  busesList.get(i).findElement(By.xpath(".//ancestor::li//button[contains(@class,'viewSeat')]")).click();
     		  wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-autoid='busDetailsContainer']")));
@@ -125,7 +184,7 @@ public class RedbusPriceTrackerTest {
         } catch(Exception e) {
         	System.out.println(e);
         } finally {
-        	//driver.quit();
+        	driver.quit();
         }
 		 
 
