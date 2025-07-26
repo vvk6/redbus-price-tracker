@@ -6,6 +6,8 @@ import java.nio.file.Path;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
@@ -158,9 +160,12 @@ public class RedbusPriceTrackerTest {
     		}
 
     		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss");
+    		
+    		ZonedDateTime istTime = ZonedDateTime.now(ZoneId.of("Asia/Kolkata"));
+    		String currentTime = istTime.format(formatter);
 
-    		// Get current time
-    		String currentTime = LocalDateTime.now().format(formatter);
+    		System.out.println("IST Time: " + currentTime);
+
 
     		// Send with your message
     		TelegramNotifier.sendTextMessage("📅 Sending data for: " + currentTime);
@@ -201,6 +206,10 @@ public class RedbusPriceTrackerTest {
     		  TelegramNotifier.sendTextMessage("------------------------");
         } catch(Exception e) {
         	System.out.println(e);
+        	TelegramNotifier.sendTextMessage("Exception Occured");
+        	TelegramNotifier.sendTextMessage(e.toString());
+        	
+        	
         } finally {
         	driver.quit();
         }
