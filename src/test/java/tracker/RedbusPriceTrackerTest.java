@@ -103,7 +103,9 @@ public class RedbusPriceTrackerTest {
     			String newMonth =driver.findElement(By.xpath("//p[@class='monthYear___93a489']")).getText();
     			System.out.println(newMonth);
     		} 
-    		
+    		Thread.sleep(200);
+    		File dateClick = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+    		FileUtils.copyFile(dateClick, new File("screenshots/debug_before_dateclick.png"));
     		driver.findElement(By.xpath("//li//span[text()='14']")).click();
        		wait.until(
     				ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='14 Aug, 2025']")));
