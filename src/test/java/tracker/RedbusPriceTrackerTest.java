@@ -110,7 +110,12 @@ public class RedbusPriceTrackerTest {
     		Thread.sleep(200);
     		File dateClick = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
     		FileUtils.copyFile(dateClick, new File("screenshots/debug_before_dateclick.png"));
-    		driver.findElement(By.xpath("//li//span[text()='14']")).click();
+    		
+    		WebElement target = driver.findElement(By.xpath("//li//span[text()='14']"));
+
+    		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});", target);
+
+    		wait.until(ExpectedConditions.elementToBeClickable(target)).click();
        		wait.until(
     				ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='14 Aug, 2025']")));
        		driver.findElement(By.xpath("//button[contains(@class,'searchButtonWrapper')]")).click();
