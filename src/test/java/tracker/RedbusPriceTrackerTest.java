@@ -40,7 +40,8 @@ public class RedbusPriceTrackerTest {
 		  addArguments("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
 		  ); options.setExperimentalOption("excludeSwitches",
 		  Arrays.asList("enable-automation"));
-		  options.setExperimentalOption("useAutomationExtension", false);}
+		  options.setExperimentalOption("useAutomationExtension", false);
+		  options.addArguments("--window-size=1920,1080");}
 		 
 		  WebDriver driver = new ChromeDriver(options);
 		  Actions actions = new Actions(driver);
