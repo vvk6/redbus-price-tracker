@@ -36,12 +36,15 @@ public class RedbusPriceTrackerTest {
 		  options.addArguments("--disable-gpu"); options.addArguments("--no-sandbox");
 		  options.addArguments("--disable-dev-shm-usage");
 		  options.addArguments("--disable-blink-features=AutomationControlled");
+		  options.addArguments("--window-size=1920,1080");
+		  options.addArguments("--force-device-scale-factor=1");
+		  options.addArguments("--high-dpi-support=1");
 		  options.
 		  addArguments("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
 		  ); options.setExperimentalOption("excludeSwitches",
 		  Arrays.asList("enable-automation"));
 		  options.setExperimentalOption("useAutomationExtension", false);
-		  options.addArguments("--window-size=1920,1080");}
+		 }
 		 
 		  WebDriver driver = new ChromeDriver(options);
 		  Actions actions = new Actions(driver);
