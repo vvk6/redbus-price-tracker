@@ -79,10 +79,9 @@ public class RedbusPriceTrackerTest {
  		FileUtils.copyFile(autoSuggest, new File("screenshots/debug_before_suggestclick.png"));
 
     		// Wait for and click on the auto-suggestion (optional safety)
-    		WebElement fromSuggestion = wait.until(ExpectedConditions.visibilityOfElementLocated(
-    		    By.xpath("//div[contains(@class, 'searchCategory')][3]")
-    		));
-    		if(fromSuggestion.isDisplayed()) {
+    		boolean fromSuggestion = wait.until(ExpectedConditions.visibilityOfElementLocated(
+    		    By.xpath("//div[contains(@class, 'searchCategory')][3]")	)).isDisplayed();
+    		if(fromSuggestion) {
     			driver.findElement(By.xpath("(//div[contains(@class,'listHeader')])[1]")).click();}
     		else {
     			driver.findElement(By.xpath("(//div[contains(@class,'suggestion-item')]//div[text()='Bangalore'])[1]")).click();
@@ -99,10 +98,10 @@ public class RedbusPriceTrackerTest {
             DestinationInput.sendKeys("Hyderabad");
     		
     		
-    		WebElement toSuggestion = wait.until(ExpectedConditions.visibilityOfElementLocated(
+    		boolean toSuggestion = wait.until(ExpectedConditions.visibilityOfElementLocated(
         		    By.xpath("//div[contains(@class, 'searchCategory')][3]")
-        		));
-     		if(toSuggestion.isDisplayed()) {
+        		)).isDisplayed();
+     		if(toSuggestion) {
      			driver.findElement(By.xpath("(//div[contains(@class,'listHeader')])[1]")).click();}
     		else {
     			driver.findElement(By.xpath("(//div[contains(@class,'suggestion-item')]//div[text()='Hyderabad'])[1]")).click();
