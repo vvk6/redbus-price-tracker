@@ -55,7 +55,7 @@ public class RedbusPriceTrackerTest {
      
 		  driver.manage().window().setSize(new Dimension(1920, 1080));
 		String TrackerPrice = "";
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         try {
  
     		//String link ="https://www.redbus.in/bus-tickets/bangalore-to-hyderabad?fromCityName=Bangalore&fromCityId=122&srcCountry=IND&fromCityType=CITY&toCityName=Hyderabad&toCityId=124&destCountry=India&toCityType=CITY&onward=14-Aug-2025&doj=14-Aug-2025&ref=home";
@@ -68,33 +68,38 @@ public class RedbusPriceTrackerTest {
     		WebElement fromDiv = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='srcDestWrapper___db6b0f' and .//div[text()='From']]")));
     		fromDiv.click();
     		
-    		Thread.sleep(2000);
+    		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'searchSuggestionWrapper')]")));
+    		
+         WebElement sourceInput = driver.switchTo().activeElement();
     		
 
     		// Type into the focused element (React traps focus to a hidden input field)
-    		actions.sendKeys("Bangalore").perform();
-    		Thread.sleep(2000);
+         sourceInput.sendKeys("Bangalore");
+    	
 
     		// Wait for and click on the auto-suggestion (optional safety)
     		WebElement fromSuggestion = wait.until(ExpectedConditions.elementToBeClickable(
-    		    By.xpath("//div[@aria-label=\"Search suggestions list\"]")
+    		    By.xpath("//div[contains(@class, 'searchCategory')][3]")
     		));
     		driver.findElement(By.xpath("(//div[@class=\"listHeader___40b031\"])[1]")).click();
     		// Click on the "ToDiv" field
     		WebElement toDiv = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='srcDestWrapper___db6b0f' and .//div[text()='To']]")));
     		toDiv.click();
     		
-    		Thread.sleep(2000);
+    		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'searchSuggestionWrapper')]")));
     		
-
-    		// Type into the focused element (React traps focus to a hidden input field)
-    		actions.sendKeys("Hyderabad").perform();
-    		Thread.sleep(2000);
+            WebElement DestinationInput = driver.switchTo().activeElement();
+            DestinationInput.sendKeys("Hyderabad");
+    		
+    		 wait.until(ExpectedConditions.elementToBeClickable(
+        		    By.xpath("//div[contains(@class, 'searchCategory')][3]")
+        		));
 
     		// Wait for and click on the auto-suggestion (optional safety)
-    		WebElement toSuggestion = wait.until(ExpectedConditions.elementToBeClickable(
-    		    By.xpath("//div[@aria-label=\"Search suggestions list\"]")
-    		));
+			/*
+			 * WebElement toSuggestion = wait.until(ExpectedConditions.elementToBeClickable(
+			 * By.xpath("//div[@aria-label=\"Search suggestions list\"]") ));
+			 */
     		driver.findElement(By.xpath("(//div[@class=\"listHeader___40b031\"])[1]")).click();
     		
     	//click on calendar
@@ -107,10 +112,10 @@ public class RedbusPriceTrackerTest {
     		System.out.println(Month);
     		if(Month.toLowerCase().contains("july")) {
     			driver.findElement(By.xpath("//i[contains(@class,'right__')]")).click();
-    			String newMonth =driver.findElement(By.xpath("//p[@class='monthYear___93a489']")).getText();
+    			String newMonth =driver.findElement(By.xpath("//p[contains(@class,'monthYear')]")).getText();
     			System.out.println(newMonth);
     		} 
-    		Thread.sleep(200);
+    		
     		File dateClick = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
     		FileUtils.copyFile(dateClick, new File("screenshots/debug_before_dateclick.png"));
     		
@@ -123,7 +128,8 @@ public class RedbusPriceTrackerTest {
     				ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='14 Aug, 2025']")));
        		driver.findElement(By.xpath("//button[contains(@class,'searchButtonWrapper')]")).click();
        		
-       		Thread.sleep(15000);
+       	//	Thread.sleep(15000);
+       		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'invWrap__ind-search')]")));
        	
     		
     		
