@@ -80,9 +80,10 @@ public class RedbusPriceTrackerTest {
 
     		// Wait for and click on the auto-suggestion (optional safety)
     		WebElement fromSuggestion = wait.until(ExpectedConditions.elementToBeClickable(
-    		    By.xpath("//div[contains(@class, 'searchCategory')][3]")
+    		    By.xpath("//div[contains(@class, 'searchCategory')]")
     		));
-    		driver.findElement(By.xpath("(//div[@class=\"listHeader___40b031\"])[1]")).click();
+    		
+    		driver.findElement(By.xpath("(//div[@class='listHeader___40b031'])[1]")).click();
     		// Click on the "ToDiv" field
     		WebElement toDiv = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='srcDestWrapper___db6b0f' and .//div[text()='To']]")));
     		toDiv.click();
