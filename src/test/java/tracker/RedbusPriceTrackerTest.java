@@ -170,12 +170,11 @@ public class RedbusPriceTrackerTest {
     		WebElement filterContainer = driver.findElement(By.xpath("//div[@data-autoid='filters-desktop']"));
     		((JavascriptExecutor) driver).executeScript("arguments[0].scrollTop = arguments[0].scrollTop + 200;",
     				filterContainer);
+
+    		driver.findElement(By.xpath("//div[text()='Bus operator']")).click();
     		
-    		WebElement operator = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[text()='Bus operator']")));
     		
-    		operator.click();
-    		//driver.findElement(By.xpath("//div[text()='Bus operator']")).click();
-    		WebElement busoperator = driver.findElement(By.xpath("//input[@placeholder='Search bus operator']"));
+    		WebElement busoperator = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Search bus operator']")));
     		if (busoperator.isEnabled()) {
     			busoperator.sendKeys("Jabbar");
     		}
