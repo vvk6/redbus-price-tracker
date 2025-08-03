@@ -90,6 +90,8 @@ public class RedbusPriceTrackerTest {
     		
             WebElement DestinationInput = driver.switchTo().activeElement();
             DestinationInput.sendKeys("Hyderabad");
+    		File autoSuggest = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+    		FileUtils.copyFile(autoSuggest, new File("screenshots/debug_before_autoSuggestclick.png"));
     		
     		 wait.until(ExpectedConditions.elementToBeClickable(
         		    By.xpath("//div[contains(@class, 'searchCategory')][3]")
