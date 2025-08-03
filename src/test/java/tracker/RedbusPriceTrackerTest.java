@@ -75,10 +75,11 @@ public class RedbusPriceTrackerTest {
 
     		// Type into the focused element (React traps focus to a hidden input field)
          sourceInput.sendKeys("Bangalore");
-    	
+         File autoSuggest = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+ 		FileUtils.copyFile(autoSuggest, new File("screenshots/debug_before_suggestclick.png"));
 
     		// Wait for and click on the auto-suggestion (optional safety)
-    		WebElement fromSuggestion = wait.until(ExpectedConditions.elementToBeClickable(
+    		WebElement fromSuggestion = wait.until(ExpectedConditions.visibilityOfElementLocated(
     		    By.xpath("//div[contains(@class, 'searchCategory')][3]")
     		));
     		if(fromSuggestion.isDisplayed()) {
@@ -96,10 +97,9 @@ public class RedbusPriceTrackerTest {
     		
             WebElement DestinationInput = driver.switchTo().activeElement();
             DestinationInput.sendKeys("Hyderabad");
-    		File autoSuggest = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-    		FileUtils.copyFile(autoSuggest, new File("screenshots/debug_before_suggestclick.png"));
     		
-    		WebElement toSuggestion = wait.until(ExpectedConditions.elementToBeClickable(
+    		
+    		WebElement toSuggestion = wait.until(ExpectedConditions.visibilityOfElementLocated(
         		    By.xpath("//div[contains(@class, 'searchCategory')][3]")
         		));
      		if(toSuggestion.isDisplayed()) {
