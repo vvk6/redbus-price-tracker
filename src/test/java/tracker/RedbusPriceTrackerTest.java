@@ -75,15 +75,19 @@ public class RedbusPriceTrackerTest {
 
     		// Type into the focused element (React traps focus to a hidden input field)
          sourceInput.sendKeys("Bangalore");
-         File autoSuggest = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
- 		FileUtils.copyFile(autoSuggest, new File("screenshots/debug_before_autoSuggestclick.png"));
+    	
 
     		// Wait for and click on the auto-suggestion (optional safety)
     		WebElement fromSuggestion = wait.until(ExpectedConditions.elementToBeClickable(
-    		    By.xpath("//div[contains(@class, 'searchCategory')]")
+    		    By.xpath("//div[contains(@class, 'searchCategory')][3]")
     		));
+    		if(fromSuggestion.isDisplayed()) {
+    			driver.findElement(By.xpath("(//div[contains(@class,'listHeader')])[1]")).click();}
+    		else {
+    			driver.findElement(By.xpath("(//div[contains(@class,'suggestion-item')]//div[text()='Bangalore'])[1]")).click();
+    		}
     		
-    		driver.findElement(By.xpath("(//div[@class='listHeader___40b031'])[1]")).click();
+    		
     		// Click on the "ToDiv" field
     		WebElement toDiv = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='srcDestWrapper___db6b0f' and .//div[text()='To']]")));
     		toDiv.click();
@@ -92,18 +96,25 @@ public class RedbusPriceTrackerTest {
     		
             WebElement DestinationInput = driver.switchTo().activeElement();
             DestinationInput.sendKeys("Hyderabad");
+    		File autoSuggest = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+    		FileUtils.copyFile(autoSuggest, new File("screenshots/debug_before_suggestclick.png"));
     		
-    		
-    		 wait.until(ExpectedConditions.elementToBeClickable(
-        		    By.xpath("//div[contains(@class, 'searchCategory')]")
+    		WebElement toSuggestion = wait.until(ExpectedConditions.elementToBeClickable(
+        		    By.xpath("//div[contains(@class, 'searchCategory')][3]")
         		));
+     		if(toSuggestion.isDisplayed()) {
+     			driver.findElement(By.xpath("(//div[contains(@class,'listHeader')])[1]")).click();}
+    		else {
+    			driver.findElement(By.xpath("(//div[contains(@class,'suggestion-item')]//div[text()='Hyderabad'])[1]")).click();
+    			}
+    		
 
     		// Wait for and click on the auto-suggestion (optional safety)
 			/*
 			 * WebElement toSuggestion = wait.until(ExpectedConditions.elementToBeClickable(
 			 * By.xpath("//div[@aria-label=\"Search suggestions list\"]") ));
 			 */
-    		driver.findElement(By.xpath("(//div[@class=\"listHeader___40b031\"])[1]")).click();
+    		
     		
     	//click on calendar
     		
