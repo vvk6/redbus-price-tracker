@@ -56,6 +56,7 @@ public class RedbusPriceTrackerTest {
 		  driver.manage().window().setSize(new Dimension(1920, 1080));
 		String TrackerPrice = "";
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		WebDriverWait wait5 = new WebDriverWait(driver, Duration.ofSeconds(5));
         try {
  
     		//String link ="https://www.redbus.in/bus-tickets/bangalore-to-hyderabad?fromCityName=Bangalore&fromCityId=122&srcCountry=IND&fromCityType=CITY&toCityName=Hyderabad&toCityId=124&destCountry=India&toCityType=CITY&onward=14-Aug-2025&doj=14-Aug-2025&ref=home";
@@ -117,21 +118,16 @@ public class RedbusPriceTrackerTest {
     			driver.findElement(By.xpath("(//div[contains(@class,'suggestion-item')]//div[text()='Hyderabad'])[1]")).click();
     			}
     		
-
-    		// Wait for and click on the auto-suggestion (optional safety)
-			/*
-			 * WebElement toSuggestion = wait.until(ExpectedConditions.elementToBeClickable(
-			 * By.xpath("//div[@aria-label=\"Search suggestions list\"]") ));
-			 */
-    		
-    		
     	//click on calendar
     		
     		driver.findElement(By.xpath("//i[contains(@class,'icon-date_range')]")).click();
     		wait.until(
     				ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'datePickerWrapper')]")));
     		
-    		String Month =driver.findElement(By.xpath("//p[contains(@class,'monthYear')]")).getText();
+    		WebElement monthTextElement = wait.until(
+    				ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(@class,'monthYear')]")));
+    		
+    		String Month =monthTextElement.getText();
     		System.out.println(Month);
     		if(Month.toLowerCase().contains("july")) {
     			driver.findElement(By.xpath("//i[contains(@class,'right__')]")).click();
@@ -179,6 +175,7 @@ public class RedbusPriceTrackerTest {
     			busoperator.sendKeys("Jabbar");
     		}
     		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Jabbar  Travels']")));
+    		
 
     		driver.findElement(By.xpath("//div[@data-autoid=\"busOperator\"]//label[@for=\"checkbox\"]")).click();
     		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class,'busTitleWrap_')]")));
@@ -189,6 +186,18 @@ public class RedbusPriceTrackerTest {
     		if (text.contains("jabbar")) {
     			System.out.println("Bus Found");
     		}
+    		WebElement busoperatorRefresh = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@placeholder='Search bus operator']")));
+    		busoperatorRefresh.click();
+    		busoperatorRefresh.clear();
+    		busoperatorRefresh.sendKeys("Delta");
+    		driver.findElement(By.xpath("//div[@data-autoid=\"busOperator\"]//label[@for=\"checkbox\"]")).click();
+    		//WebElement endOfList = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='End of list']")));
+    				
+    				//driver.findElement(By.xpath("//span[text()='End of list']"));
+
+    		//((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", endOfList);
+    		
+    		
 
     		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss");
     		
@@ -200,15 +209,31 @@ public class RedbusPriceTrackerTest {
 
     		// Send with your message
     		TelegramNotifier.sendTextMessage("📅 Sending data for: " + currentTime);
-    		  for(int i=0;i<busesList.size();i++) { 
-    			  String busType=  busesList.get(i).findElement(By.xpath(".//p[contains(@class, 'busType__')]")).getText();
+    		List<WebElement> newbusesList = driver.findElements(By.xpath("//div[contains(@class,'busTitleWrap_')]"));
+    		  for(int i=0;i<newbusesList.size();i++) { 
+    			  String busType=  newbusesList.get(i).findElement(By.xpath(".//p[contains(@class, 'busType__')]")).getText();
+    			  System.out.println(busType+ "  "+ i );
     			  
-    		 if(busType.equalsIgnoreCase("Scania AC Multi Axle Sleeper (2+1)")) {
-    		  TrackerPrice= busesList.get(i).findElement(By.xpath(".//ancestor::li//p[contains(@class,'finalFare')]")).getText();
+    		 if(busType.equalsIgnoreCase("Volvo 9600 Multi-Axle A/C Sleeper (2+1)")||busType.equalsIgnoreCase("Scania AC Multi Axle Sleeper (2+1)")) {
+    		  TrackerPrice= newbusesList.get(i).findElement(By.xpath(".//ancestor::li//p[contains(@class,'finalFare')]")).getText();
     		  
-    		  busesList.get(i).findElement(By.xpath(".//ancestor::li//button[contains(@class,'viewSeat')]")).click();
+    		  newbusesList.get(i).findElement(By.xpath(".//ancestor::li//button[contains(@class,'viewSeat')]")).click();
     		  wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-autoid='busDetailsContainer']")));
     		  
+    		  boolean isLoginVisible =false;
+    		  WebElement loginBottomsheet = null;
+      		try {
+      			 loginBottomsheet = 
+      					wait5.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-autoid='bottom-sheet']")));
+      			isLoginVisible = loginBottomsheet.isDisplayed();}
+      		catch(Exception e) {
+      			
+      		}
+      
+       		if(isLoginVisible) {
+       			loginBottomsheet.findElement(By.xpath(".//button[contains(@class,'actionButton')]")).click();}
+ 
+    	
               // Screenshot
               File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
             
