@@ -66,7 +66,7 @@ public class RedbusPriceTrackerTest {
     		driver.get(link);
     		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-autoid='searchWidget']")));
     		// Click on the "From" field
-    		WebElement fromDiv = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='srcDestWrapper___db6b0f' and .//div[text()='From']]")));
+    		WebElement fromDiv = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class,'srcDestWrapper') and .//div[text()='From']]")));
     		fromDiv.click();
     		
     		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'searchSuggestionWrapper')]")));
@@ -96,7 +96,7 @@ public class RedbusPriceTrackerTest {
     		
     		
     		// Click on the "ToDiv" field
-    		WebElement toDiv = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='srcDestWrapper___db6b0f' and .//div[text()='To']]")));
+    		WebElement toDiv = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class,'srcDestWrapper') and .//div[text()='To']]")));
     		toDiv.click();
     		
     		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'searchSuggestionWrapper')]")));
