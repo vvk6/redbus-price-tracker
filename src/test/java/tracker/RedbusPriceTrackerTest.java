@@ -130,7 +130,9 @@ public class RedbusPriceTrackerTest {
     		String Month =monthTextElement.getText();
     		System.out.println(Month);
     		if(Month.toLowerCase().contains("August")) {
-    			driver.findElement(By.xpath("//i[contains(@class,'right__')]")).click();
+    			WebElement arrow = driver.findElement(By.xpath("//i[contains(@class,'right__')]"));
+    			wait.until(ExpectedConditions.elementToBeClickable(arrow)).click();
+    			
     			String newMonth =driver.findElement(By.xpath("//p[contains(@class,'monthYear')]")).getText();
     			System.out.println(newMonth);
     		} 
