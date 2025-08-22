@@ -2,7 +2,7 @@ name: Redbus Price Tracker
 
 on:
   schedule:
-    - cron: '0 */4 * * *'  # Every 4 hours (in UTC)
+    - cron: '0 */8 * * *'  # Every 8 hours (in UTC)
   workflow_dispatch:       # Manual trigger if needed
 
 jobs:
