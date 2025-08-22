@@ -144,7 +144,7 @@ public class RedbusPriceTrackerTest {
 
     		wait.until(ExpectedConditions.elementToBeClickable(target)).click();
        		wait.until(
-    				ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='06 Sep, 2025']")));
+    				ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(@class,'doj')]")));
        		driver.findElement(By.xpath("//button[contains(@class,'searchButtonWrapper')]")).click();
        		
        	//	Thread.sleep(15000);
