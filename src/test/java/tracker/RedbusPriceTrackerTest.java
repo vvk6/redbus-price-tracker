@@ -75,7 +75,7 @@ public class RedbusPriceTrackerTest {
     		
 
     		// Type into the focused element (React traps focus to a hidden input field)
-         sourceInput.sendKeys("Bangalore");
+         sourceInput.sendKeys("Hyderabad");
          File autoSuggest = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
  		FileUtils.copyFile(autoSuggest, new File("screenshots/debug_before_suggestclick.png"));
 
@@ -91,7 +91,7 @@ public class RedbusPriceTrackerTest {
     		if(fromSuggestion) {
     			driver.findElement(By.xpath("(//div[contains(@class,'listHeader')])[1]")).click();}
     		else {
-    			driver.findElement(By.xpath("(//div[contains(@class,'suggestion-item')]//div[text()='Bangalore'])[1]")).click();
+    			driver.findElement(By.xpath("(//div[contains(@class,'suggestion-item')]//div[text()='Hyderabad'])[1]")).click();
     		}
     		
     		
@@ -102,7 +102,7 @@ public class RedbusPriceTrackerTest {
     		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'searchSuggestionWrapper')]")));
     		
             WebElement DestinationInput = driver.switchTo().activeElement();
-            DestinationInput.sendKeys("Hyderabad");
+            DestinationInput.sendKeys("Bangalore");
     		boolean toSuggestion =false;
     		try {
     			toSuggestion=wait.until(ExpectedConditions.visibilityOfElementLocated(
@@ -115,7 +115,7 @@ public class RedbusPriceTrackerTest {
      		if(toSuggestion) {
      			driver.findElement(By.xpath("(//div[contains(@class,'listHeader')])[1]")).click();}
     		else {
-    			driver.findElement(By.xpath("(//div[contains(@class,'suggestion-item')]//div[text()='Hyderabad'])[1]")).click();
+    			driver.findElement(By.xpath("(//div[contains(@class,'suggestion-item')]//div[text()='Bangalore'])[1]")).click();
     			}
     		
     	//click on calendar
@@ -129,7 +129,7 @@ public class RedbusPriceTrackerTest {
     		
     		String Month =monthTextElement.getText();
     		System.out.println(Month);
-    		if(Month.toLowerCase().contains("july")) {
+    		if(Month.toLowerCase().contains("September")) {
     			driver.findElement(By.xpath("//i[contains(@class,'right__')]")).click();
     			String newMonth =driver.findElement(By.xpath("//p[contains(@class,'monthYear')]")).getText();
     			System.out.println(newMonth);
@@ -138,13 +138,13 @@ public class RedbusPriceTrackerTest {
     		File dateClick = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
     		FileUtils.copyFile(dateClick, new File("screenshots/debug_before_dateclick.png"));
     		
-    		WebElement target = driver.findElement(By.xpath("//li//span[text()='14']"));
+    		WebElement target = driver.findElement(By.xpath("//li//span[text()='6']"));
 
     		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});", target);
 
     		wait.until(ExpectedConditions.elementToBeClickable(target)).click();
        		wait.until(
-    				ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='14 Aug, 2025']")));
+    				ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='06 Sep, 2025']")));
        		driver.findElement(By.xpath("//button[contains(@class,'searchButtonWrapper')]")).click();
        		
        	//	Thread.sleep(15000);
