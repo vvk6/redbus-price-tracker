@@ -128,13 +128,13 @@ public class RedbusPriceTrackerTest {
     				ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(@class,'monthYear')]")));
     		
     		String Month =monthTextElement.getText();
-    		System.out.println(Month);
-    		if(Month.toLowerCase().contains("August")) {
+    		System.out.println(Month+" old month");
+    		if(Month.toLowerCase().contains("august")) {
     			WebElement arrow = driver.findElement(By.xpath("//i[contains(@class,'right__')]"));
     			wait.until(ExpectedConditions.elementToBeClickable(arrow)).click();
     			
     			String newMonth =driver.findElement(By.xpath("//p[contains(@class,'monthYear')]")).getText();
-    			System.out.println(newMonth);
+    			System.out.println(newMonth+"new month");
     		} 
     		
     		File dateClick = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
