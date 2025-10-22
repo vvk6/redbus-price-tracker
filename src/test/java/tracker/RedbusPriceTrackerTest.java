@@ -25,7 +25,7 @@ import org.testng.annotations.Test;
 
 public class RedbusPriceTrackerTest {
 	
-	@Test
+	//@Test
 	public void trackBusPrice()  throws Exception {
    		System.out.println("===== Test 1 Bangalore to Hyderabad started =====");
    		ChromeOptions options = new ChromeOptions();
@@ -276,7 +276,7 @@ public class RedbusPriceTrackerTest {
 	}
 	@Test
 	public void NandedBusPricetracker()  throws Exception {
-   		System.out.println("===== Test 2 Bangalore to Nanded started =====");
+   		System.out.println("===== Test 2 Nanded to Bangalore started =====");
    		ChromeOptions options = new ChromeOptions();
 
 		  
@@ -324,7 +324,7 @@ public class RedbusPriceTrackerTest {
     		
 
     		// Type into the focused element (React traps focus to a hidden input field)
-         sourceInput.sendKeys("Bangalore");
+         sourceInput.sendKeys("Nanded");
          File autoSuggest = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
  		FileUtils.copyFile(autoSuggest, new File("screenshots/debug_before_suggestclick_2.png"));
 
@@ -340,7 +340,7 @@ public class RedbusPriceTrackerTest {
     		if(fromSuggestion) {
     			driver.findElement(By.xpath("(//div[contains(@class,'listHeader')])[1]")).click();}
     		else {
-    			driver.findElement(By.xpath("(//div[contains(@class,'suggestion-item')]//div[text()='Bangalore'])[1]")).click();
+    			driver.findElement(By.xpath("(//div[contains(@class,'suggestion-item')]//div[text()='Nanded'])[1]")).click();
     		}
     		
     		
@@ -351,7 +351,7 @@ public class RedbusPriceTrackerTest {
     		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'searchSuggestionWrapper')]")));
     		
             WebElement DestinationInput = driver.switchTo().activeElement();
-            DestinationInput.sendKeys("Nanded");
+            DestinationInput.sendKeys("Bangalore");
     		boolean toSuggestion =false;
     		try {
     			toSuggestion=wait.until(ExpectedConditions.visibilityOfElementLocated(
@@ -364,7 +364,7 @@ public class RedbusPriceTrackerTest {
      		if(toSuggestion) {
      			driver.findElement(By.xpath("(//div[contains(@class,'listHeader')])[1]")).click();}
     		else {
-    			driver.findElement(By.xpath("(//div[contains(@class,'suggestion-item')]//div[text()='Nanded'])[1]")).click();
+    			driver.findElement(By.xpath("(//div[contains(@class,'suggestion-item')]//div[text()='Bangalore'])[1]")).click();
     			}
     		
     	//click on calendar
@@ -378,7 +378,7 @@ public class RedbusPriceTrackerTest {
     		
     		String Month =monthTextElement.getText();
     		System.out.println(Month+" old month");
-    		if(Month.toLowerCase().contains("september")) {
+    		if(Month.toLowerCase().contains("october")) {
     			WebElement arrow = driver.findElement(By.xpath("//i[contains(@class,'right__')]"));
     			wait.until(ExpectedConditions.elementToBeClickable(arrow)).click();
     			
@@ -389,7 +389,7 @@ public class RedbusPriceTrackerTest {
     		File dateClick = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
     		FileUtils.copyFile(dateClick, new File("screenshots/debug_before_dateclick2.png"));
     		
-    		WebElement target = driver.findElement(By.xpath("//li//span[text()='17']"));
+    		WebElement target = driver.findElement(By.xpath("//li//span[text()='5']"));
 
     		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});", target);
 
